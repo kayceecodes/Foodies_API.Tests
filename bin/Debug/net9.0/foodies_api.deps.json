@@ -13,7 +13,7 @@
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.5",
           "Microsoft.AspNetCore.Identity.UI": "8.0.5",
           "Microsoft.AspNetCore.Mvc.Versioning": "5.1.0",
-          "Microsoft.AspNetCore.OpenApi": "8.0.13",
+          "Microsoft.AspNetCore.OpenApi": "8.0.15",
           "Microsoft.EntityFrameworkCore.Tools": "8.0.5",
           "Newtonsoft.Json": "13.0.3",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "8.0.4",
@@ -104,14 +104,14 @@
           }
         }
       },
-      "Microsoft.AspNetCore.OpenApi/8.0.13": {
+      "Microsoft.AspNetCore.OpenApi/8.0.15": {
         "dependencies": {
           "Microsoft.OpenApi": "1.6.14"
         },
         "runtime": {
           "lib/net8.0/Microsoft.AspNetCore.OpenApi.dll": {
-            "assemblyVersion": "8.0.13.0",
-            "fileVersion": "8.0.1325.6610"
+            "assemblyVersion": "8.0.15.0",
+            "fileVersion": "8.0.1525.16505"
           }
         }
       },
@@ -827,12 +827,12 @@
       "path": "microsoft.aspnetcore.mvc.versioning/5.1.0",
       "hashPath": "microsoft.aspnetcore.mvc.versioning.5.1.0.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.OpenApi/8.0.13": {
+    "Microsoft.AspNetCore.OpenApi/8.0.15": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-j5Ti7HD/nQpYM5re8QefQc0XyiNOagIaINIAdOPyeRgxKW69f1optcaQxi7Z7jM1q8Rsqw1IMZDig9mJsBZqPw==",
-      "path": "microsoft.aspnetcore.openapi/8.0.13",
-      "hashPath": "microsoft.aspnetcore.openapi.8.0.13.nupkg.sha512"
+      "sha512": "sha512-Nu/I5tek+FbumgyrfNAxcPZd8uQi6VTYfZ+6Wr/JYrHFM6zb6DJx99v5QjMnsf9ePHkUto0zvUFVaA2gpiV9mQ==",
+      "path": "microsoft.aspnetcore.openapi/8.0.15",
+      "hashPath": "microsoft.aspnetcore.openapi.8.0.15.nupkg.sha512"
     },
     "Microsoft.Bcl.AsyncInterfaces/6.0.0": {
       "type": "package",

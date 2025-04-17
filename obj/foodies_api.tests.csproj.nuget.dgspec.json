@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/kaycee/repos/foodies/foodies_api.tests/foodies_api.tests.csproj": {}
+    "/home/kaycee/repos/foodies/Foodies_API.Tests/foodies_api.tests.csproj": {}
   },
   "projects": {
-    "/home/kaycee/repos/foodies/foodies_api.tests/foodies_api.tests.csproj": {
+    "/home/kaycee/repos/foodies/Foodies_API.Tests/foodies_api.tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/kaycee/repos/foodies/foodies_api.tests/foodies_api.tests.csproj",
+        "projectUniqueName": "/home/kaycee/repos/foodies/Foodies_API.Tests/foodies_api.tests.csproj",
         "projectName": "foodies_api.tests",
-        "projectPath": "/home/kaycee/repos/foodies/foodies_api.tests/foodies_api.tests.csproj",
+        "projectPath": "/home/kaycee/repos/foodies/Foodies_API.Tests/foodies_api.tests.csproj",
         "packagesPath": "/home/kaycee/.nuget/packages/",
-        "outputPath": "/home/kaycee/repos/foodies/foodies_api.tests/obj/",
+        "outputPath": "/home/kaycee/repos/foodies/Foodies_API.Tests/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/kaycee/.nuget/NuGet/NuGet.Config"
@@ -89,7 +89,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/9.0.200/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/9.0.203/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
@@ -195,7 +195,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/9.0.200/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/9.0.203/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

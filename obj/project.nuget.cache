@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "t/+tOhSRB4c=",
+  "dgSpecHash": "kWPUBpenvwQ=",
   "success": true,
-  "projectFilePath": "/home/kaycee/repos/foodies/foodies_api.tests/foodies_api.tests.csproj",
+  "projectFilePath": "/home/kaycee/repos/foodies/Foodies_API.Tests/foodies_api.tests.csproj",
   "expectedPackageFiles": [
     "/home/kaycee/.nuget/packages/automapper/13.0.1/automapper.13.0.1.nupkg.sha512",
     "/home/kaycee/.nuget/packages/castle.core/5.1.1/castle.core.5.1.1.nupkg.sha512",
@@ -13,7 +13,7 @@
     "/home/kaycee/.nuget/packages/microsoft.aspnetcore.identity.entityframeworkcore/8.0.5/microsoft.aspnetcore.identity.entityframeworkcore.8.0.5.nupkg.sha512",
     "/home/kaycee/.nuget/packages/microsoft.aspnetcore.identity.ui/8.0.5/microsoft.aspnetcore.identity.ui.8.0.5.nupkg.sha512",
     "/home/kaycee/.nuget/packages/microsoft.aspnetcore.mvc.versioning/5.1.0/microsoft.aspnetcore.mvc.versioning.5.1.0.nupkg.sha512",
-    "/home/kaycee/.nuget/packages/microsoft.aspnetcore.openapi/8.0.13/microsoft.aspnetcore.openapi.8.0.13.nupkg.sha512",
+    "/home/kaycee/.nuget/packages/microsoft.aspnetcore.openapi/8.0.15/microsoft.aspnetcore.openapi.8.0.15.nupkg.sha512",
     "/home/kaycee/.nuget/packages/microsoft.codecoverage/17.12.0/microsoft.codecoverage.17.12.0.nupkg.sha512",
     "/home/kaycee/.nuget/packages/microsoft.entityframeworkcore/8.0.5/microsoft.entityframeworkcore.8.0.5.nupkg.sha512",
     "/home/kaycee/.nuget/packages/microsoft.entityframeworkcore.abstractions/8.0.5/microsoft.entityframeworkcore.abstractions.8.0.5.nupkg.sha512",

@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using foodies_api.Interfaces.Repositories;
 using foodies_api.Models.Dtos.Responses;
 using foodies_api.Models.Dtos.Requests;
+using AutoMapper;
 
 namespace foodies_api.tests;
 
@@ -21,7 +22,7 @@ public class UsersTests
     private List<User> _users;
     private ILogger<UsersService> _mockLogger;
     private Mock<IUsersRepository> _mockUsersRepository;
-
+    private Mock<IMapper> _mapper;
 
     [SetUp]
     public void Setup()
@@ -29,7 +30,7 @@ public class UsersTests
         CreateUsers();
 
         _mockUsersRepository = new Mock<IUsersRepository>();
-
+        _mapper = new Mock<IMapper>();
         var serviceProvider = new ServiceCollection()
             .AddLogging()
             .BuildServiceProvider();
@@ -41,11 +42,11 @@ public class UsersTests
     public void MockUsersRepository(List<User> users, bool success, Guid id = new Guid())
     {
         // Setup mock UsersRepository methods if needed
-        _mockUsersRepository.Setup(repo => repo.GetUsers()).Returns(Task.FromResult(new RepositoryResponse<IEnumerable<User>>()
+        _mockUsersRepository.Setup(repo => repo.GetAllUsers()).Returns(Task.FromResult(new RepositoryResponse<List<User>>()
         { Success = success, Data = users, Exception = null }));
         _mockUsersRepository.Setup(repo => repo.GetUserById(It.IsAny<Guid>())).Returns(Task.FromResult(new RepositoryResponse<User>()
         { Success = success, Data = users[0], Exception = null }));
-        _mockUsersRepository.Setup(repo => repo.DeleteUser(It.IsAny<Guid>())).Returns(Task.FromResult(new RepositoryResponse<User>()
+        _mockUsersRepository.Setup(repo => repo.DeleteUserById(It.IsAny<Guid>())).Returns(Task.FromResult(new RepositoryResponse<User>()
         { Success = success, Data = users[0], Exception = null }));
         _mockUsersRepository.Setup(repo => repo.UpdateUser(It.IsAny<Guid>(), It.IsAny<UserUpdateRequest>())).Returns(Task.FromResult(new RepositoryResponse<User>()
         { Success = success, Data = users[0], Exception = null }));
@@ -58,7 +59,7 @@ public class UsersTests
     {
         _users = new List<User>();
         var guids = CreateGuids(3);
-        
+
         for (var i = 0; i < 3; i++)
             _users.Add(new()
             {
@@ -67,14 +68,14 @@ public class UsersTests
                 LastName = "SomeLastName",
                 Username = $"username-{i.ToString()}",
                 Email = "test@email.com"
-            });  
+            });
     }
 
     private static List<Guid> CreateGuids(int num)
     {
         var guids = new List<Guid>();
-        
-        for(int i = 0; i < num; i++)
+
+        for (int i = 0; i < num; i++)
         {
             guids.Add(new Guid());
         }
@@ -86,13 +87,13 @@ public class UsersTests
     /// </summary>
     private UsersService CreateUsersService()
     {
-        var service = new UsersService(_mockLogger, _mockUsersRepository.Object);
+        var service = new UsersService(_mockLogger, _mapper.Object, _mockUsersRepository.Object);
         return service;
     }
 
     [Test]
     public void GetUserById_Valid()
-    {   
+    {
         var usersService = CreateUsersService();
         List<Guid> guids = CreateGuids(1);
         MockUsersRepository(_users, true);
@@ -102,29 +103,42 @@ public class UsersTests
     }
 
     [Test]
-    public void GetUsers_Valid()
-    {   
+    public void GetAllUsers_Valid()
+    {
         var usersService = CreateUsersService();
         MockUsersRepository(_users, true);
-        
-        var result = usersService.GetUsers();
+
+        var result = usersService.GetAllUsers();
 
         Assert.That(result.Result.IsSuccess);
         Assert.That(result.Result.Data.Count(), Is.EqualTo(3));
     }
 
-        [Test]
-        public void Update_Valid()
-        {
-            var guid = _users[0].Id;
-            var userUpdateRequest = new UserUpdateRequest() { Email = "changed@email.com" };
-            _users[0].Email = userUpdateRequest.Email;
-            var usersService = CreateUsersService();
-            MockUsersRepository(_users, true);
+    [Test]
+    public void Update_Valid()
+    {
+        var guid = _users[0].Id;
+        var userUpdateRequest = new UserUpdateRequest() { Email = "changed@email.com" };
+        _users[0].Email = userUpdateRequest.Email;
+        var usersService = CreateUsersService();
+        MockUsersRepository(_users, true);
 
-            var result = usersService.UpdateUser(guid, userUpdateRequest);
+        var result = usersService.UpdateUser(guid, userUpdateRequest);
 
-            Assert.That(result.Result.IsSuccess);
-            Assert.That(result.Result.Data.Email, Is.EqualTo("changed@email.com"));
-        }
+        Assert.That(result.Result.IsSuccess);
+        Assert.That(result.Result.Data.Email, Is.EqualTo("changed@email.com"));
+    }
+
+    [Test]
+    public void DeleteUserById()
+    {
+        var guid = _users[0].Id;
+        var usersService = CreateUsersService();
+        MockUsersRepository(_users, true);
+
+        var result = usersService.DeleteUserById(guid);
+
+        Assert.That(result.Result.IsSuccess);
+        Assert.That(result.Result.Data.Email, Is.EqualTo("test@email.com"));
+    }
 }

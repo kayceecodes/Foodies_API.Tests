@@ -147,7 +147,7 @@
           "Microsoft.AspNetCore.App"
         ]
       },
-      "Microsoft.AspNetCore.OpenApi/8.0.13": {
+      "Microsoft.AspNetCore.OpenApi/8.0.15": {
         "type": "package",
         "dependencies": {
           "Microsoft.OpenApi": "1.4.3"
@@ -1430,10 +1430,10 @@
         "microsoft.aspnetcore.mvc.versioning.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.OpenApi/8.0.13": {
-      "sha512": "j5Ti7HD/nQpYM5re8QefQc0XyiNOagIaINIAdOPyeRgxKW69f1optcaQxi7Z7jM1q8Rsqw1IMZDig9mJsBZqPw==",
+    "Microsoft.AspNetCore.OpenApi/8.0.15": {
+      "sha512": "Nu/I5tek+FbumgyrfNAxcPZd8uQi6VTYfZ+6Wr/JYrHFM6zb6DJx99v5QjMnsf9ePHkUto0zvUFVaA2gpiV9mQ==",
       "type": "package",
-      "path": "microsoft.aspnetcore.openapi/8.0.13",
+      "path": "microsoft.aspnetcore.openapi/8.0.15",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1441,7 +1441,7 @@
         "THIRD-PARTY-NOTICES.TXT",
         "lib/net8.0/Microsoft.AspNetCore.OpenApi.dll",
         "lib/net8.0/Microsoft.AspNetCore.OpenApi.xml",
-        "microsoft.aspnetcore.openapi.8.0.13.nupkg.sha512",
+        "microsoft.aspnetcore.openapi.8.0.15.nupkg.sha512",
         "microsoft.aspnetcore.openapi.nuspec"
       ]
     },
@@ -2926,11 +2926,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/kaycee/repos/foodies/foodies_api.tests/foodies_api.tests.csproj",
+      "projectUniqueName": "/home/kaycee/repos/foodies/Foodies_API.Tests/foodies_api.tests.csproj",
       "projectName": "foodies_api.tests",
-      "projectPath": "/home/kaycee/repos/foodies/foodies_api.tests/foodies_api.tests.csproj",
+      "projectPath": "/home/kaycee/repos/foodies/Foodies_API.Tests/foodies_api.tests.csproj",
       "packagesPath": "/home/kaycee/.nuget/packages/",
-      "outputPath": "/home/kaycee/repos/foodies/foodies_api.tests/obj/",
+      "outputPath": "/home/kaycee/repos/foodies/Foodies_API.Tests/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/kaycee/.nuget/NuGet/NuGet.Config"
@@ -3008,7 +3008,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/9.0.200/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/9.0.203/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
