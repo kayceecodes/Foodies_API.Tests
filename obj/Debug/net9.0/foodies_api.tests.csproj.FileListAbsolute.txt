@@ -133,3 +133,12 @@
 /home/kaycee/repos/foodies/Foodies_API.Tests/obj/Debug/net9.0/foodies_api.tests.pdb
 /home/kaycee/repos/foodies/Foodies_API.Tests/obj/Debug/net9.0/foodies_api.tests.genruntimeconfig.cache
 /home/kaycee/repos/foodies/Foodies_API.Tests/obj/Debug/net9.0/ref/foodies_api.tests.dll
+/home/kaycee/repos/foodies/Foodies_API.Tests/bin/Debug/net9.0/Microsoft.EntityFrameworkCore.InMemory.dll
+/home/kaycee/repos/foodies/Foodies_API.Tests/bin/Debug/net9.0/Microsoft.Extensions.Caching.Abstractions.dll
+/home/kaycee/repos/foodies/Foodies_API.Tests/bin/Debug/net9.0/Microsoft.Extensions.Caching.Memory.dll
+/home/kaycee/repos/foodies/Foodies_API.Tests/bin/Debug/net9.0/Microsoft.Extensions.DependencyInjection.dll
+/home/kaycee/repos/foodies/Foodies_API.Tests/bin/Debug/net9.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll
+/home/kaycee/repos/foodies/Foodies_API.Tests/bin/Debug/net9.0/Microsoft.Extensions.Logging.dll
+/home/kaycee/repos/foodies/Foodies_API.Tests/bin/Debug/net9.0/Microsoft.Extensions.Logging.Abstractions.dll
+/home/kaycee/repos/foodies/Foodies_API.Tests/bin/Debug/net9.0/Microsoft.Extensions.Options.dll
+/home/kaycee/repos/foodies/Foodies_API.Tests/bin/Debug/net9.0/Microsoft.Extensions.Primitives.dll
