@@ -1,18 +1,18 @@
-using foodies_api.Services;
 using Moq;
 using Microsoft.Extensions.Logging;
 using foodies_api.Models.Entities;
 using Microsoft.Extensions.DependencyInjection;
-using foodies_api.Interfaces.Repositories;
 using AutoMapper;
 using foodies_api.Repositories;
 using Microsoft.EntityFrameworkCore;
 using foodies_api.Data;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace foodies_api.tests;
 
 [TestFixture]
-public class UserLikeBusinessesTests 
+public class UserLikeBusinessesTests
 {
     private List<UserLikeBusiness> _userLikes;
     private ILogger<UserLikeBusiness>? _mockLogger;
@@ -22,7 +22,8 @@ public class UserLikeBusinessesTests
     [SetUp]
     public void Setup()
     {
-        CreateUserLikes();
+        _userLikes =
+            UserLikeBusinessTestData.UserLikeBusinesses as List<UserLikeBusiness> ?? [];
         CreateContext();        
 
         _mapper = new Mock<IMapper>();
@@ -35,50 +36,29 @@ public class UserLikeBusinessesTests
 
     }
 
-    private AppDbContext CreateContext()
+    private void CreateContext()
     {
         var options = new DbContextOptionsBuilder<AppDbContext>()
         .UseInMemoryDatabase(databaseName: "TestDb")
         .Options;
         var context = new AppDbContext(options);
 
-        foreach(var userLike in _userLikes)
-            context.UserLikeBusinesses.Add(userLike);
+            foreach (var userLike in _userLikes)
+                context.UserLikeBusinesses.Add(userLike);
 
         context.SaveChanges();
-  
-        return context; 
+        _context = context;
     }
-    
+
     /// <summary>
     /// Creates a list of Users
     /// </summary>
-    private void CreateUserLikes()
+    private List<UserLikeBusiness> CreateUserLikes()
     {
-        _userLikes = new List<UserLikeBusiness>();
-        var ids = CreateIDs(3);
-        var guids = CreateGuids(3);
+        var userLikes =
+            UserLikeBusinessTestData.UserLikeBusinesses as List<UserLikeBusiness>;
 
-        for (var i = 0; i < 3; i++)
-            _userLikes.Add(new()
-            {
-                Id = ids[i],
-                BusinessName = $"Business Name #{i}",
-                BusinessId = $"Business ID: {i}",
-                UserId = guids[i],
-                Username = $"username #{i}"
-            });
-    }
-
-    private static List<int> CreateIDs(int num)
-    {
-        var ids = new List<int>();
-
-        for (int i = 0; i < num; i++)
-        {
-            ids.Add(new int());
-        }
-        return ids;
+        return userLikes ?? new();
     }
 
     private static List<Guid> CreateGuids(int num)
@@ -92,35 +72,78 @@ public class UserLikeBusinessesTests
         return guids;
     }
 
-    /// <summary>
+/// <summary>
     /// Creates a UsersService instance
     /// </summary>
-    private UsersLikeBusinessesRepository CreateUserLikeBusinessRepository()
+    private UsersLikeBusinessesRepository CreateUserLikeBusinessRepository(AppDbContext context, IMapper mapper, ILogger<UserLikeBusiness> logger)
     {
-        var repository = new UsersLikeBusinessesRepository(_context, _mapper.Object, _mockLogger); //TODO: setup mapper & logger to not be class members of each Test classes
+        var repository = new UsersLikeBusinessesRepository(context, mapper, logger); //TODO: setup mapper & logger to not be class members of each Test classes
         return repository;
     }
 
     [Test]
     public void AddUserLikes_Valid()
     {
-        var userLikeRepository = CreateUserLikeBusinessRepository();
+        var userLikeRepository =
+            CreateUserLikeBusinessRepository(_context, _mapper.Object, _mockLogger);
 
-        var result = userLikeRepository.AddUserLikes(_userLikes[0]).Result;
+        var result = userLikeRepository.AddUserLikes(new() { BusinessId = "4", Id = 4, UserId = Guid.NewGuid() }).Result;
 
-        Assert.That(result.Data.BusinessName, Is.EqualTo("Business Name #1"));
-        Assert.That(result.Data.Id, Is.EqualTo(1));
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result.Data.BusinessId, Is.EqualTo("4"));
+        Assert.That(result.Data.Id, Is.EqualTo(4));
     }
 
-    [Test]
-    public void GetAllUsers_Valid()
+    [Test, TestCaseSource(typeof(UserLikeBusinessTestData), nameof(UserLikeBusinessTestData.UserLikeBusinesses))]
+    public async Task GetAllUserLikeBusinesses_Valid(UserLikeBusiness userLike)
     {
-    //    var usersService = CreateUsersService();
-        //MockUsersRepository(_users, true);
+        var userLikeRepository =
+        CreateUserLikeBusinessRepository(_context, _mapper.Object, _mockLogger);
 
-        //var result = usersService.GetAllUsers();
+        var result = userLikeRepository.AddUserLikes(userLike).Result;
 
-        //Assert.That(result.Result.IsSuccess);
-        //Assert.That(result.Result.Data.Count(), Is.EqualTo(3));
+        Assert.Multiple(() =>
+        {
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Data.BusinessName, Is.EqualTo($"Business Name #{userLike.Id}"));
+            Assert.That(result.Data.Id, Is.EqualTo(userLike.Id));
+        });
+    }
+}
+
+public static class UserLikeBusinessTestData
+{
+    public static IEnumerable<UserLikeBusiness> UserLikeBusinesses
+    {
+        get
+        {
+            return new List<UserLikeBusiness>
+            {
+                new UserLikeBusiness
+                {
+                    Id = 1,
+                    BusinessName = "Business Name #1",
+                    BusinessId = "Business ID: 1",
+                    UserId = Guid.NewGuid(),
+                    Username = "username #1"
+                },
+                new UserLikeBusiness
+                {
+                    Id = 2,
+                    BusinessName = "Business Name #2",
+                    BusinessId = "Business ID: 2",
+                    UserId = Guid.NewGuid(),
+                    Username = "username #2"
+                },
+                new UserLikeBusiness
+                {
+                    Id = 3,
+                    BusinessName = "Business Name #3",
+                    BusinessId = "Business ID: 3",
+                    UserId = Guid.NewGuid(),
+                    Username = "username #3"
+                }
+            };
+        }
     }
 }
