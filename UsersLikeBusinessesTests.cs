@@ -6,7 +6,6 @@ using AutoMapper;
 using foodies_api.Repositories;
 using Microsoft.EntityFrameworkCore;
 using foodies_api.Data;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace foodies_api.tests;
@@ -24,7 +23,7 @@ public class UserLikeBusinessesTests
     {
         _userLikes =
             UserLikeBusinessTestData.UserLikeBusinesses as List<UserLikeBusiness> ?? [];
-        CreateContext();        
+        CreateContext();
 
         _mapper = new Mock<IMapper>();
         var serviceProvider = new ServiceCollection()
@@ -36,6 +35,10 @@ public class UserLikeBusinessesTests
 
     }
 
+    /// <summary>
+    /// Creates and initializes an in-memory database context for testing purposes.
+    /// Populates the database with test data from the `_userLikes` list.
+    /// </summary>
     private void CreateContext()
     {
         var options = new DbContextOptionsBuilder<AppDbContext>()
@@ -43,41 +46,24 @@ public class UserLikeBusinessesTests
         .Options;
         var context = new AppDbContext(options);
 
-            foreach (var userLike in _userLikes)
-                context.UserLikeBusinesses.Add(userLike);
+        foreach (var userLike in _userLikes)
+            context.UserLikeBusinesses.Add(userLike);
 
         context.SaveChanges();
         _context = context;
     }
 
     /// <summary>
-    /// Creates a list of Users
+    /// Creates an instance of the UsersLikeBusinessesRepository with the provided database context,
+    /// mapper, and logger. This repository is used to perform operations on the UserLikeBusinesses data.
     /// </summary>
-    private List<UserLikeBusiness> CreateUserLikes()
-    {
-        var userLikes =
-            UserLikeBusinessTestData.UserLikeBusinesses as List<UserLikeBusiness>;
-
-        return userLikes ?? new();
-    }
-
-    private static List<Guid> CreateGuids(int num)
-    {
-        var guids = new List<Guid>();
-
-        for (int i = 0; i < num; i++)
-        {
-            guids.Add(Guid.NewGuid());
-        }
-        return guids;
-    }
-
-/// <summary>
-    /// Creates a UsersService instance
-    /// </summary>
+    /// <param name="context">The database context to use.</param>
+    /// <param name="mapper">The mapper instance for object mapping.</param>
+    /// <param name="logger">The logger instance for logging operations.</param>
+    /// <returns>An instance of UsersLikeBusinessesRepository.</returns>
     private UsersLikeBusinessesRepository CreateUserLikeBusinessRepository(AppDbContext context, IMapper mapper, ILogger<UserLikeBusiness> logger)
     {
-        var repository = new UsersLikeBusinessesRepository(context, mapper, logger); //TODO: setup mapper & logger to not be class members of each Test classes
+        var repository = new UsersLikeBusinessesRepository(context, mapper, logger);
         return repository;
     }
 
@@ -109,8 +95,26 @@ public class UserLikeBusinessesTests
             Assert.That(result.Data.Id, Is.EqualTo(userLike.Id));
         });
     }
+
+
+    [Test, TestCaseSource(typeof(UserLikeBusinessTestData), nameof(UserLikeBusinessTestData.UserLikeBusinesses))]
+    public async Task RemoveUserLike_Valid(UserLikeBusiness userLike)
+    {
+        var userLikeRepository =
+        CreateUserLikeBusinessRepository(_context, _mapper.Object, _mockLogger);
+
+        await userLikeRepository.RemoveUserLikes(userLike.UserId, userLike.BusinessId);
+        var result = userLikeRepository.GetUserLikesById(userLike.Id).Result; //TODO: Add GetUserLikesById to foodiesapi
+
+        Assert.That(result.Data, Is.Null);
+    }
 }
 
+/// <summary>
+/// Provides test data for the UserLikeBusiness entity.
+/// This class contains a collection of predefined UserLikeBusiness objects
+/// that can be used as input for unit tests.
+/// </summary>
 public static class UserLikeBusinessTestData
 {
     public static IEnumerable<UserLikeBusiness> UserLikeBusinesses
